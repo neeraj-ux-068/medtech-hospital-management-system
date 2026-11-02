@@ -1,0 +1,68 @@
+# Final proposed .gitignore
+
+Apply this only in the new clean Git copy after technical review.
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa
+id_ed25519
+
+# Database dumps and local database artifacts
+SQL File/hms.sql
+*.dump
+*.dump.gz
+*.sql.bak
+*.sqlite
+*.sqlite3
+
+# Original backups and XAMPP recovery copies
+stabilization-backup-*/
+stage3-font-change-backup/
+stage3-xampp-backup-*/
+xampp-before-*/
+
+# Generated / machine-specific artifacts
+output/
+*.log
+*.tmp
+*.temp
+*.bak
+*.cache
+*.swp
+Thumbs.db
+.DS_Store
+.sass-cache/
+**/.sass-cache/
+*.scssc
+
+# Runtime data paths: explicit only; no broad storage rule
+uploads/
+**/uploads/
+exports/
+**/exports/
+
+# Tooling output
+node_modules/
+coverage/
+.phpunit.result.cache
+.vscode/
+.idea/
+*.code-workspace
+
+# Unreferenced bundled third-party demos/samples
+hospital/hms/**/vendor/ckeditor/samples/
+hospital/hms/**/vendor/ckeditor/skins/bootstrapck/sample/
+hospital/hms/**/vendor/Jcrop/demo_files/
+hospital/hms/**/vendor/jquery-file-upload/server/
+
+# Deliberately retained:
+# - no storage/ or **/storage/ rule, since no directory currently exists;
+# - no vendor/bin/ rule, since none currently exists;
+# - role vendor assets, subject to vendor review;
+# - SQL File/migrations/, while excluding hms.sql.
