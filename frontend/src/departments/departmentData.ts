@@ -1,0 +1,3 @@
+import { doctorDepartments } from '../doctors/doctorData'
+export type Department={id:string;name:string;description:string;headId:string;status:'Active'|'Inactive'}
+export const initialDepartments:Department[]=doctorDepartments.map((name,index)=>({id:`DEPT-DEMO-${String(index+1).padStart(2,'0')}`,name,description:[`Heart and cardiovascular care, consultations and follow-up services.`,`Neurological assessment and specialist care services.`,`Musculoskeletal assessment and orthopaedic care.`,`Child health, development and paediatric consultations.`,`Primary care, prevention and general health consultations.`][index],headId:`DR-DEMO-${String(index+1).padStart(3,'0')}`,status:'Active'}))

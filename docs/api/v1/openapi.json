@@ -1,0 +1,1517 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "MedTech HMS read-only API draft",
+    "version": "1.0.0-draft",
+    "description": "DESIGN ONLY. No routes implemented. See README.md for validation, ownership, error and rollout policy. Unknown/repeated scalar query keys are rejected. Authentication adapter needs separate approval."
+  },
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+  ],
+  "security": [
+    {
+      "phpSession": []
+    }
+  ],
+  "paths": {
+    "/auth/session": {
+      "get": {
+        "operationId": "getSession",
+        "summary": "getSession",
+        "description": "Draft only. Roles: patient, doctor, admin. All checks are server-side. No request body or database writes.",
+        "x-allowed-roles": [
+          "patient",
+          "doctor",
+          "admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                },
+                "description": "Required on every response."
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "Referrer-Policy": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-referrer"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SessionResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthenticated"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "405": {
+            "$ref": "#/components/responses/MethodNotAllowed"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable"
+          }
+        }
+      },
+      "head": {
+        "operationId": "getSessionHead",
+        "description": "Same permission checks and headers as GET; no response body.",
+        "x-allowed-roles": [
+          "patient",
+          "doctor",
+          "admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                },
+                "description": "Required on every response."
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "Referrer-Policy": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-referrer"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/HeadInvalidRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/HeadUnauthenticated"
+          },
+          "403": {
+            "$ref": "#/components/responses/HeadForbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/HeadNotFound"
+          },
+          "405": {
+            "$ref": "#/components/responses/HeadMethodNotAllowed"
+          },
+          "429": {
+            "$ref": "#/components/responses/HeadRateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/HeadInternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/HeadServiceUnavailable"
+          }
+        }
+      }
+    },
+    "/dashboard/summary": {
+      "get": {
+        "operationId": "getDashboardSummary",
+        "summary": "getDashboardSummary",
+        "description": "Draft only. Roles: admin. All checks are server-side. No request body or database writes.",
+        "x-allowed-roles": [
+          "admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                },
+                "description": "Required on every response."
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "Referrer-Policy": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-referrer"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthenticated"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "405": {
+            "$ref": "#/components/responses/MethodNotAllowed"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable"
+          }
+        }
+      },
+      "head": {
+        "operationId": "getDashboardSummaryHead",
+        "description": "Same permission checks and headers as GET; no response body.",
+        "x-allowed-roles": [
+          "admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                },
+                "description": "Required on every response."
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "Referrer-Policy": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-referrer"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/HeadInvalidRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/HeadUnauthenticated"
+          },
+          "403": {
+            "$ref": "#/components/responses/HeadForbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/HeadNotFound"
+          },
+          "405": {
+            "$ref": "#/components/responses/HeadMethodNotAllowed"
+          },
+          "429": {
+            "$ref": "#/components/responses/HeadRateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/HeadInternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/HeadServiceUnavailable"
+          }
+        }
+      }
+    },
+    "/patients": {
+      "get": {
+        "operationId": "listPatients",
+        "summary": "listPatients",
+        "description": "Draft only. Roles: admin. All checks are server-side. No request body or database writes.",
+        "x-allowed-roles": [
+          "admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                },
+                "description": "Required on every response."
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "Referrer-Policy": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-referrer"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthenticated"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "405": {
+            "$ref": "#/components/responses/MethodNotAllowed"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable"
+          }
+        }
+      },
+      "head": {
+        "operationId": "listPatientsHead",
+        "description": "Same permission checks and headers as GET; no response body.",
+        "x-allowed-roles": [
+          "admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                },
+                "description": "Required on every response."
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "Referrer-Policy": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-referrer"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/HeadInvalidRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/HeadUnauthenticated"
+          },
+          "403": {
+            "$ref": "#/components/responses/HeadForbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/HeadNotFound"
+          },
+          "405": {
+            "$ref": "#/components/responses/HeadMethodNotAllowed"
+          },
+          "429": {
+            "$ref": "#/components/responses/HeadRateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/HeadInternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/HeadServiceUnavailable"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "page",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "default": 1,
+            "minimum": 1,
+            "maximum": 10000
+          }
+        },
+        {
+          "name": "pageSize",
+          "in": "query",
+          "schema": {
+            "type": "integer",
+            "default": 20,
+            "minimum": 1,
+            "maximum": 100
+          }
+        },
+        {
+          "name": "sort",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "default": "id",
+            "enum": [
+              "id",
+              "fullName",
+              "registeredAt"
+            ]
+          }
+        },
+        {
+          "name": "direction",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "default": "desc",
+            "enum": [
+              "asc",
+              "desc"
+            ]
+          }
+        },
+        {
+          "name": "registeredFrom",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "format": "date"
+          },
+          "description": "Inclusive source registration date; hospital timezone interpretation must be verified."
+        },
+        {
+          "name": "registeredTo",
+          "in": "query",
+          "schema": {
+            "type": "string",
+            "format": "date"
+          },
+          "description": "Inclusive source registration date; hospital timezone interpretation must be verified."
+        }
+      ]
+    },
+    "/patients/{patientId}": {
+      "get": {
+        "operationId": "getPatient",
+        "summary": "getPatient",
+        "description": "Draft only. Roles: admin. All checks are server-side. No request body or database writes.",
+        "x-allowed-roles": [
+          "admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                },
+                "description": "Required on every response."
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "Referrer-Policy": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-referrer"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/InvalidRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/Unauthenticated"
+          },
+          "403": {
+            "$ref": "#/components/responses/Forbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "405": {
+            "$ref": "#/components/responses/MethodNotAllowed"
+          },
+          "429": {
+            "$ref": "#/components/responses/RateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/ServiceUnavailable"
+          }
+        }
+      },
+      "head": {
+        "operationId": "getPatientHead",
+        "description": "Same permission checks and headers as GET; no response body.",
+        "x-allowed-roles": [
+          "admin"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "headers": {
+              "Cache-Control": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-store"
+                },
+                "description": "Required on every response."
+              },
+              "X-Request-ID": {
+                "schema": {
+                  "type": "string"
+                }
+              },
+              "X-Content-Type-Options": {
+                "schema": {
+                  "type": "string",
+                  "const": "nosniff"
+                }
+              },
+              "Referrer-Policy": {
+                "schema": {
+                  "type": "string",
+                  "const": "no-referrer"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/HeadInvalidRequest"
+          },
+          "401": {
+            "$ref": "#/components/responses/HeadUnauthenticated"
+          },
+          "403": {
+            "$ref": "#/components/responses/HeadForbidden"
+          },
+          "404": {
+            "$ref": "#/components/responses/HeadNotFound"
+          },
+          "405": {
+            "$ref": "#/components/responses/HeadMethodNotAllowed"
+          },
+          "429": {
+            "$ref": "#/components/responses/HeadRateLimited"
+          },
+          "500": {
+            "$ref": "#/components/responses/HeadInternalError"
+          },
+          "503": {
+            "$ref": "#/components/responses/HeadServiceUnavailable"
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "patientId",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "pattern": "^[1-9][0-9]{0,9}$"
+          },
+          "description": "users.id positive decimal string; maximum 2147483647 after base-schema verification. Not a legacy profile or fixture display ID."
+        }
+      ]
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "phpSession": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "PHPSESSID",
+        "description": "Existing HttpOnly PHP session. Actual cookie name/path/storage must be verified; no new login endpoint."
+      }
+    },
+    "schemas": {
+      "Meta": {
+        "type": "object",
+        "required": [
+          "requestId",
+          "mode"
+        ],
+        "properties": {
+          "requestId": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "mode": {
+            "const": "live"
+          }
+        }
+      },
+      "PatientSummary": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "fullName",
+          "city",
+          "gender",
+          "registeredAt"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[1-9][0-9]{0,9}$",
+            "description": "users.id, range verified before implementation"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "city": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "gender": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "registeredAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          }
+        }
+      },
+      "PatientDetail": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "fullName",
+          "city",
+          "gender",
+          "registeredAt",
+          "address",
+          "email"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[1-9][0-9]{0,9}$",
+            "description": "users.id, range verified before implementation"
+          },
+          "fullName": {
+            "type": "string"
+          },
+          "city": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "gender": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "registeredAt": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
+          },
+          "address": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "email": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      },
+      "Pagination": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "page",
+          "pageSize",
+          "total",
+          "totalPages"
+        ],
+        "properties": {
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000
+          },
+          "pageSize": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "total": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "totalPages": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "error",
+          "meta"
+        ],
+        "properties": {
+          "error": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "code",
+              "message"
+            ],
+            "properties": {
+              "code": {
+                "type": "string",
+                "enum": [
+                  "INVALID_REQUEST",
+                  "UNAUTHENTICATED",
+                  "FORBIDDEN",
+                  "NOT_FOUND",
+                  "METHOD_NOT_ALLOWED",
+                  "RATE_LIMITED",
+                  "INTERNAL_ERROR",
+                  "SERVICE_UNAVAILABLE"
+                ]
+              },
+              "message": {
+                "type": "string"
+              },
+              "fields": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        }
+      },
+      "SessionResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "id",
+              "role"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[1-9][0-9]*$"
+              },
+              "role": {
+                "enum": [
+                  "patient",
+                  "doctor",
+                  "admin"
+                ]
+              }
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        }
+      },
+      "DashboardResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "registeredPatientAccounts",
+              "doctors",
+              "appointmentsToday",
+              "date",
+              "timezone",
+              "asOf"
+            ],
+            "properties": {
+              "registeredPatientAccounts": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "doctors": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "appointmentsToday": {
+                "type": "integer",
+                "minimum": 0
+              },
+              "date": {
+                "type": "string",
+                "format": "date"
+              },
+              "timezone": {
+                "type": "string"
+              },
+              "asOf": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        }
+      },
+      "PatientResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/PatientDetail"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        }
+      },
+      "PatientsResponse": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "data",
+          "meta"
+        ],
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PatientSummary"
+            }
+          },
+          "meta": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Meta"
+              },
+              {
+                "type": "object",
+                "required": [
+                  "pagination"
+                ],
+                "properties": {
+                  "pagination": {
+                    "$ref": "#/components/schemas/Pagination"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "responses": {
+      "InvalidRequest": {
+        "description": "INVALID_REQUEST",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "no-store"
+            },
+            "description": "Required on every response."
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "Referrer-Policy": {
+            "schema": {
+              "type": "string",
+              "const": "no-referrer"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Unauthenticated": {
+        "description": "UNAUTHENTICATED",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "no-store"
+            },
+            "description": "Required on every response."
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "Referrer-Policy": {
+            "schema": {
+              "type": "string",
+              "const": "no-referrer"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "Forbidden": {
+        "description": "FORBIDDEN",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "no-store"
+            },
+            "description": "Required on every response."
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "Referrer-Policy": {
+            "schema": {
+              "type": "string",
+              "const": "no-referrer"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "NOT_FOUND",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "no-store"
+            },
+            "description": "Required on every response."
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "Referrer-Policy": {
+            "schema": {
+              "type": "string",
+              "const": "no-referrer"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "MethodNotAllowed": {
+        "description": "METHOD_NOT_ALLOWED",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "no-store"
+            },
+            "description": "Required on every response."
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "Referrer-Policy": {
+            "schema": {
+              "type": "string",
+              "const": "no-referrer"
+            }
+          },
+          "Allow": {
+            "schema": {
+              "type": "string",
+              "const": "GET, HEAD"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "RateLimited": {
+        "description": "RATE_LIMITED",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "no-store"
+            },
+            "description": "Required on every response."
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "Referrer-Policy": {
+            "schema": {
+              "type": "string",
+              "const": "no-referrer"
+            }
+          },
+          "Retry-After": {
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "Required delay in seconds."
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "InternalError": {
+        "description": "INTERNAL_ERROR",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "no-store"
+            },
+            "description": "Required on every response."
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "Referrer-Policy": {
+            "schema": {
+              "type": "string",
+              "const": "no-referrer"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "ServiceUnavailable": {
+        "description": "SERVICE_UNAVAILABLE",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "no-store"
+            },
+            "description": "Required on every response."
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "Referrer-Policy": {
+            "schema": {
+              "type": "string",
+              "const": "no-referrer"
+            }
+          }
+        },
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "HeadInvalidRequest": {
+        "description": "INVALID_REQUEST",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "no-store"
+            },
+            "description": "Required on every response."
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "Referrer-Policy": {
+            "schema": {
+              "type": "string",
+              "const": "no-referrer"
+            }
+          }
+        }
+      },
+      "HeadUnauthenticated": {
+        "description": "UNAUTHENTICATED",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "no-store"
+            },
+            "description": "Required on every response."
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "Referrer-Policy": {
+            "schema": {
+              "type": "string",
+              "const": "no-referrer"
+            }
+          }
+        }
+      },
+      "HeadForbidden": {
+        "description": "FORBIDDEN",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "no-store"
+            },
+            "description": "Required on every response."
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "Referrer-Policy": {
+            "schema": {
+              "type": "string",
+              "const": "no-referrer"
+            }
+          }
+        }
+      },
+      "HeadNotFound": {
+        "description": "NOT_FOUND",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "no-store"
+            },
+            "description": "Required on every response."
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "Referrer-Policy": {
+            "schema": {
+              "type": "string",
+              "const": "no-referrer"
+            }
+          }
+        }
+      },
+      "HeadMethodNotAllowed": {
+        "description": "METHOD_NOT_ALLOWED",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "no-store"
+            },
+            "description": "Required on every response."
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "Referrer-Policy": {
+            "schema": {
+              "type": "string",
+              "const": "no-referrer"
+            }
+          },
+          "Allow": {
+            "schema": {
+              "type": "string",
+              "const": "GET, HEAD"
+            }
+          }
+        }
+      },
+      "HeadRateLimited": {
+        "description": "RATE_LIMITED",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "no-store"
+            },
+            "description": "Required on every response."
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "Referrer-Policy": {
+            "schema": {
+              "type": "string",
+              "const": "no-referrer"
+            }
+          },
+          "Retry-After": {
+            "schema": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "description": "Required delay in seconds."
+          }
+        }
+      },
+      "HeadInternalError": {
+        "description": "INTERNAL_ERROR",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "no-store"
+            },
+            "description": "Required on every response."
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "Referrer-Policy": {
+            "schema": {
+              "type": "string",
+              "const": "no-referrer"
+            }
+          }
+        }
+      },
+      "HeadServiceUnavailable": {
+        "description": "SERVICE_UNAVAILABLE",
+        "headers": {
+          "Cache-Control": {
+            "schema": {
+              "type": "string",
+              "const": "no-store"
+            },
+            "description": "Required on every response."
+          },
+          "X-Request-ID": {
+            "schema": {
+              "type": "string"
+            }
+          },
+          "X-Content-Type-Options": {
+            "schema": {
+              "type": "string",
+              "const": "nosniff"
+            }
+          },
+          "Referrer-Policy": {
+            "schema": {
+              "type": "string",
+              "const": "no-referrer"
+            }
+          }
+        }
+      }
+    }
+  }
+}
